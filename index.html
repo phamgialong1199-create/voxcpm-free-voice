@@ -2,46 +2,345 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="VoxCPM Free Voice Studio - giao diện tạo giọng nói AI miễn phí." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="VoxCPM Free Voice Studio - Công cụ tạo giọng nói AI miễn phí.">
 <title>VoxCPM Free Voice Studio</title>
+
 <style>
-:root{color-scheme:dark;--bg:#090d18;--panel:#131b2c;--line:#2a3650;--txt:#f1f5ff;--muted:#a3b0c9;--accent:#8c77ff;--accent2:#49d7cf}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0%,#26224a 0,transparent 36%),var(--bg);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--txt);line-height:1.5}header,main,footer{max-width:1050px;margin:auto;padding:22px}header{display:flex;justify-content:space-between;align-items:center;gap:15px}.logo{font-weight:800;font-size:19px}.logo span{color:var(--accent2)}.tag{font-size:12px;color:var(--accent2);border:1px solid #347d81;border-radius:50px;padding:6px 12px}.hero{text-align:center;padding:45px 15px 28px}h1{font-size:clamp(30px,5vw,52px);line-height:1.1;margin:0 0 15px}.hero p{color:var(--muted);max-width:650px;margin:auto}.grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,1fr);gap:18px}.card{background:rgba(19,27,44,.96);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 15px 40px #0002}h2{font-size:19px;margin:0 0 15px}label{display:block;font-weight:650;margin:17px 0 8px;font-size:14px}textarea,select,input[type=url],input[type=file]{width:100%;background:#0b1220;border:1px solid #35415a;border-radius:11px;color:var(--txt);padding:12px;font:inherit}textarea{min-height:260px;resize:vertical}textarea:focus,select:focus,input:focus{outline:2px solid var(--accent);outline-offset:1px}.small,.hint{color:var(--muted);font-size:13px}.row{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:11px;background:linear-gradient(110deg,var(--accent),#5c8eff);padding:14px 22px;color:white;font-weight:750;font-size:15px;cursor:pointer}.btn:disabled{opacity:.45;cursor:not-allowed}.btn-secondary{background:#26324a}.notice{background:#1c2840;border:1px solid #394967;border-radius:12px;padding:12px;font-size:13px;color:#cbd6ed}.status{margin-top:16px;min-height:24px;color:var(--accent2);font-size:14px}.hidden{display:none}progress{width:100%;height:13px;accent-color:var(--accent)}audio{width:100%;margin-top:12px}a{color:#a7b8ff}footer{text-align:center;color:var(--muted);font-size:13px;padding-bottom:45px}.sponsor{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}.sponsor a{display:inline-block;margin-top:8px}.pill{display:inline-block;font-size:12px;padding:3px 9px;border-radius:20px;background:#28354f;color:#b9d3ff}@media(max-width:760px){.grid{grid-template-columns:1fr}header{padding-top:18px}.hero{padding-top:25px}.card{padding:16px}}
+:root {
+  color-scheme: dark;
+  --bg: #090d18;
+  --panel: #131b2c;
+  --line: #2a3650;
+  --txt: #f1f5ff;
+  --muted: #a3b0c9;
+  --accent: #8c77ff;
+  --accent2: #49d7cf;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 80% 0%, #26224a 0, transparent 36%), var(--bg);
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  color: var(--txt);
+  line-height: 1.5;
+}
+
+header, main, footer {
+  max-width: 1050px;
+  margin: auto;
+  padding: 22px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo { font-weight: 800; font-size: 19px; }
+.logo span { color: var(--accent2); }
+
+.tag {
+  font-size: 12px;
+  color: var(--accent2);
+  border: 1px solid #347d81;
+  border-radius: 50px;
+  padding: 6px 12px;
+}
+
+.hero { text-align: center; padding: 45px 15px 28px; }
+
+h1 {
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.1;
+  margin: 0 0 15px;
+}
+
+.hero p { color: var(--muted); max-width: 650px; margin: auto; }
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 18px;
+}
+
+.card {
+  background: rgba(19, 27, 44, .96);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 15px 40px #0002;
+}
+
+h2 { font-size: 19px; margin: 0 0 15px; }
+
+label {
+  display: block;
+  font-weight: 650;
+  margin: 17px 0 8px;
+  font-size: 14px;
+}
+
+textarea, select, input[type=file] {
+  width: 100%;
+  background: #0b1220;
+  border: 1px solid #35415a;
+  border-radius: 11px;
+  color: var(--txt);
+  padding: 12px;
+  font: inherit;
+}
+
+textarea { min-height: 260px; resize: vertical; }
+
+textarea:focus, select:focus, input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.small, .hint { color: var(--muted); font-size: 13px; }
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(110deg, var(--accent), #5c8eff);
+  padding: 14px 22px;
+  color: white;
+  font-weight: 750;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.btn:hover { filter: brightness(1.12); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+.notice {
+  background: #1c2840;
+  border: 1px solid #394967;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 13px;
+  color: #cbd6ed;
+}
+
+.status {
+  margin-top: 16px;
+  min-height: 24px;
+  color: var(--accent2);
+  font-size: 14px;
+}
+
+.hidden { display: none; }
+
+progress { width: 100%; height: 13px; accent-color: var(--accent); }
+audio { width: 100%; margin-top: 12px; }
+a { color: #a7b8ff; }
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  padding-bottom: 45px;
+}
+
+.sponsor {
+  margin-top: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+.sponsor a { display: inline-block; margin-top: 8px; }
+
+.pill {
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: #28354f;
+  color: #b9d3ff;
+}
+
+@media(max-width:760px) {
+  .grid { grid-template-columns: 1fr; }
+  header { padding-top: 18px; }
+  .hero { padding-top: 25px; }
+  .card { padding: 16px; }
+}
 </style>
 </head>
+
 <body>
-<header><div class="logo">◉ VoxCPM <span>Free Voice</span></div><div class="tag">Free • No account</div></header>
+
+<header>
+  <div class="logo">◉ VoxCPM <span>Free Voice</span></div>
+  <div class="tag">Free • No account</div>
+</header>
+
 <main>
-<section class="hero"><h1>Biến văn bản thành<br><span style="color:#a995ff">giọng nói tự nhiên</span></h1><p>Nhập văn bản, chọn giọng và tạo audio. Hỗ trợ quy trình chia đoạn văn bản dài khi kết nối máy chủ VoxCPM2.</p></section>
+
+<section class="hero">
+  <h1>
+    Biến văn bản thành<br>
+    <span style="color:#a995ff">giọng nói tự nhiên</span>
+  </h1>
+  <p>
+    Nhập văn bản, chọn giọng và tạo audio.
+    Hỗ trợ chia đoạn văn bản dài khi kết nối máy chủ VoxCPM2.
+  </p>
+</section>
+
 <div class="grid">
+
 <section class="card" aria-labelledby="studio-title">
-<h2 id="studio-title">🎙️ AI Voice Studio <span class="pill">Frontend beta</span></h2>
+
+<h2 id="studio-title">
+  🎙️ AI Voice Studio
+  <span class="pill">Frontend beta</span>
+</h2>
+
 <label for="text">Văn bản cần đọc</label>
 <textarea id="text" placeholder="Dán truyện, kịch bản hoặc văn bản của bạn vào đây..."></textarea>
-<div class="row"><span class="small" id="count">0 ký tự</span><span class="small">Văn bản dài sẽ được chia đoạn ở backend</span></div>
+
+<div class="row">
+  <span class="small" id="count">0 ký tự</span>
+  <span class="small">Văn bản dài sẽ được chia đoạn ở backend</span>
+</div>
+
 <label for="voice">Chế độ giọng nói</label>
-<select id="voice"><option value="default">Giọng mặc định (sẽ cấu hình)</option><option value="clone">Clone từ giọng mẫu</option></select>
-<div id="sampleWrap" class="hidden"><label for="sample">Audio mẫu của bạn (WAV/MP3)</label><input id="sample" type="file" accept="audio/wav,audio/mpeg,.wav,.mp3"/><p class="hint">Chỉ tải giọng của chính bạn hoặc giọng đã được chủ sở hữu đồng ý.</p></div>
-<p class="notice">⚠️ Chưa kết nối VoxCPM2. Nút Generate sẽ được bật sau khi API và GPU được kiểm thử. Website này chưa tạo audio thật.</p>
-<div class="row"><button class="btn" id="generate" disabled>✦ Generate Audio</button><span class="small">Không cần đăng nhập</span></div>
-<div class="status" id="status" role="status">Trạng thái: Chờ kết nối AI server</div>
-<div id="result" class="hidden"><label>Kết quả audio</label><progress id="progress" max="100" value="0"></progress><audio id="player" controls></audio><a id="download" download="voxcpm-audio.mp3">Tải MP3</a></div>
+<select id="voice">
+  <option value="default">Giọng mặc định (sẽ cấu hình)</option>
+  <option value="clone">Clone từ giọng mẫu</option>
+</select>
+
+<div id="sampleWrap" class="hidden">
+  <label for="sample">Audio mẫu của bạn (WAV/MP3)</label>
+  <input id="sample" type="file" accept="audio/wav,audio/mpeg,.wav,.mp3">
+  <p class="hint">
+    Chỉ tải giọng của chính bạn hoặc giọng đã được chủ sở hữu đồng ý.
+  </p>
+</div>
+
+<p class="notice">
+  ⚠️ VoxCPM2 chưa được kết nối. Hiện tại website chưa thể tạo audio.
+  Liên kết tài trợ có thể được mở riêng trong lúc thử nghiệm.
+</p>
+
+<div class="row">
+  <button class="btn" id="generate" type="button">
+    ✦ Generate Audio
+  </button>
+  <span class="small">Không cần đăng nhập</span>
+</div>
+
+<div class="status" id="status" role="status">
+  Trạng thái: Chờ kết nối AI server
+</div>
+
+<div id="result" class="hidden">
+  <label>Kết quả audio</label>
+  <progress id="progress" max="100" value="0"></progress>
+  <audio id="player" controls></audio>
+  <a id="download" download="voxcpm-audio.mp3">Tải MP3</a>
+</div>
+
 </section>
-<aside class="card"><h2>✨ Tính năng dự kiến</h2><p>✓ Tạo giọng nói AI miễn phí</p><p>✓ Không cần tài khoản</p><p>✓ Tự chia văn bản dài</p><p>✓ Lưu checkpoint và ghép MP3</p><p>✓ Clone giọng có sự đồng ý</p><p class="hint">Các tính năng xử lý audio chỉ khả dụng khi backend VoxCPM2 hoạt động.</p><div class="sponsor"><h2>🤝 Đối tác tài trợ</h2><p class="small">Website có thể nhận hoa hồng từ liên kết tiếp thị. Việc truy cập trang tài trợ là tùy chọn và không ảnh hưởng đến việc tạo audio.</p><div class="notice">Chưa cấu hình liên kết tài trợ. Sau này sẽ thêm link của anh vào đây.</div></div></aside>
+
+<aside class="card">
+
+<h2>✨ Tính năng dự kiến</h2>
+
+<p>✓ Tạo giọng nói AI miễn phí</p>
+<p>✓ Không cần tài khoản</p>
+<p>✓ Tự chia văn bản dài</p>
+<p>✓ Lưu checkpoint và ghép MP3</p>
+<p>✓ Clone giọng có sự đồng ý</p>
+
+<p class="hint">
+  Các tính năng xử lý audio chỉ khả dụng khi backend VoxCPM2 hoạt động.
+</p>
+
+<div class="sponsor">
+  <h2>🤝 Đối tác tài trợ</h2>
+  <p class="small">
+    Website có thể nhận hoa hồng từ liên kết tiếp thị.
+    Việc truy cập trang tài trợ là tùy chọn.
+  </p>
+  <a
+    href="https://s.shopee.vn/8AWm4RnzlB"
+    target="_blank"
+    rel="noopener noreferrer sponsored"
+  >
+    🛍️ Khám phá trang tài trợ trên Shopee ↗
+  </a>
+</div>
+
+</aside>
 </div>
 </main>
-<footer>© <span id="year"></span> VoxCPM Free Voice Studio • Giao diện thử nghiệm • Không phải dịch vụ chính thức của nhà phát triển VoxCPM.</footer>
+
+<footer>
+  © <span id="year"></span> VoxCPM Free Voice Studio
+  • Giao diện thử nghiệm
+  • Không phải dịch vụ chính thức của nhà phát triển VoxCPM.
+</footer>
+
 <script>
-const textEl=document.getElementById('text');
-const voiceEl=document.getElementById('voice');
-const sampleWrap=document.getElementById('sampleWrap');
-textEl.addEventListener('input',()=>document.getElementById('count').textContent=textEl.value.length.toLocaleString('vi-VN')+' ký tự');
-voiceEl.addEventListener('change',()=>sampleWrap.classList.toggle('hidden',voiceEl.value!=='clone'));
-document.getElementById('year').textContent=new Date().getFullYear();
-// Bước sau: kết nối API tạo job, polling tiến độ và tải MP3.
-// Không lưu API key hoặc mật khẩu GPU trong HTML công khai.
+const AFFILIATE_URL = "https://s.shopee.vn/8AWm4RnzlB";
+
+const textEl = document.getElementById("text");
+const voiceEl = document.getElementById("voice");
+const sampleWrap = document.getElementById("sampleWrap");
+const statusEl = document.getElementById("status");
+const generateBtn = document.getElementById("generate");
+
+textEl.addEventListener("input", () => {
+  document.getElementById("count").textContent =
+    textEl.value.length.toLocaleString("vi-VN") + " ký tự";
+});
+
+voiceEl.addEventListener("change", () => {
+  sampleWrap.classList.toggle(
+    "hidden",
+    voiceEl.value !== "clone"
+  );
+});
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+generateBtn.addEventListener("click", () => {
+  if (!textEl.value.trim()) {
+    statusEl.textContent = "Vui lòng nhập văn bản trước.";
+    textEl.focus();
+    return;
+  }
+
+  if (voiceEl.value === "clone" &&
+      !document.getElementById("sample").files.length) {
+    statusEl.textContent = "Vui lòng chọn file giọng mẫu.";
+    return;
+  }
+
+  statusEl.textContent =
+    "AI chưa kết nối. Bạn có thể truy cập trang tài trợ bằng liên kết bên phải.";
+
+  // Không tự động kích hoạt affiliate từ nút Generate.
+  // Việc mở trang tài trợ cần là lựa chọn riêng của người dùng.
+  // Sau khi có backend, nút này sẽ gửi tác vụ tạo audio.
+});
 </script>
+
 </body>
 </html>
