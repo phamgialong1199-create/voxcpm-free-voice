@@ -1,0 +1,14 @@
+{
+  "top": {
+    "enabled": false,
+    "imageUrl": "",
+    "linkUrl": "",
+    "alt": "Quảng cáo đầu trang"
+  },
+  "bottom": {
+    "enabled": false,
+    "imageUrl": "",
+    "linkUrl": "",
+    "alt": "Quảng cáo cuối trang"
+  }
+}
